@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Armoires Électriques — Eurofloat</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0B0D12;color:#CDD0E8;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.wrap{width:100%;max-width:420px;text-align:center}
+.ico{font-size:52px;display:block;margin-bottom:16px}
+.title{font-size:24px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(135deg,#A0C4FF,#7B9FFF,#C0A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.sub{font-size:11px;color:#5A6080;letter-spacing:.08em;text-transform:uppercase;margin-bottom:32px}
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{display:block;padding:18px 20px;border-radius:12px;border:1px solid #2A3050;background:#111420;text-decoration:none;color:#CDD0E8;transition:all .2s;display:flex;align-items:center;gap:14px}
+.card:hover{border-color:#4D7FFF;background:#161A28;transform:translateY(-1px)}
+.card-ico{font-size:28px;flex-shrink:0}
+.card-body{text-align:left;flex:1}
+.card-title{font-size:16px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:3px}
+.card-desc{font-size:11px;color:#5A6080;line-height:1.5}
+.card-arr{font-size:20px;color:#5A6080}
+.footer{margin-top:24px;font-size:11px;color:#363D60}
+</style>
+<script>
+// Redirection automatique selon l'appareil
+window.addEventListener('DOMContentLoaded', function() {
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+  setTimeout(function() {
+    window.location.href = isMobile ? 'mobile.html' : 'pc.html';
+  }, 800);
+});
+</script>
+</head>
+<body>
+<div class="wrap">
+  <span class="ico">⚡</span>
+  <div class="title">Armoires Électriques</div>
+  <div class="sub">Eurofloat — Redirection en cours...</div>
+  <div class="cards">
+    <a href="mobile.html" class="card">
+      <div class="card-ico">📱</div>
+      <div class="card-body">
+        <div class="card-title" style="color:#4D7FFF">Version Mobile</div>
+        <div class="card-desc">Optimisée pour téléphone — navigation tactile</div>
+      </div>
+      <div class="card-arr">›</div>
+    </a>
+    <a href="pc.html" class="card">
+      <div class="card-ico">🖥️</div>
+      <div class="card-body">
+        <div class="card-title" style="color:#FF9330">Version PC</div>
+        <div class="card-desc">Drag & drop, schéma SVG — pour ordinateur</div>
+      </div>
+      <div class="card-arr">›</div>
+    </a>
+  </div>
+  <div class="footer">Vous serez redirigé automatiquement selon votre appareil</div>
+</div>
+</body>
+</html>

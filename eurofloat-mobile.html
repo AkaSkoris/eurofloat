@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Armoires Électriques — Eurofloat</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0B0D12;--s1:#111420;--s2:#181C2C;--s3:#202540;
+  --b1:#1E2235;--b2:#2A3050;--b3:#363D60;
+  --txt:#CDD0E8;--dim:#5A6080;--acc:#4D7FFF;
+  --grn:#1FD882;--red:#FF4545;--org:#FF9330;
+  --nav-h:62px;--hdr-h:52px;
+  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,sans-serif;font-size:14px;display:flex;flex-direction:column;padding-top:var(--st)}
+
+/* ══ HEADER ══ */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:var(--hdr-h);background:var(--s1);border-bottom:1px solid var(--b1);flex-shrink:0}
+.hdr-brand{display:flex;align-items:center;gap:9px;cursor:pointer}
+.hdr-ico{width:32px;height:32px;border-radius:7px;background:linear-gradient(135deg,#1A2E88,#0D1A55);border:1px solid #2A44B8;display:flex;align-items:center;justify-content:center;font-size:17px}
+.hdr-title{font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.hdr-sub{font-size:9px;color:var(--dim);letter-spacing:.08em;margin-top:1px}
+.dl-btn{padding:8px 13px;border-radius:7px;border:1px solid #2A7A2A;background:#0D1F0D;color:#6FD86F;font-size:12px;font-weight:700;cursor:pointer}
+
+/* ══ VIEWS ══ */
+.view{display:none;flex:1;flex-direction:column;overflow:hidden;padding-bottom:calc(var(--nav-h) + var(--sb))}
+.view.on{display:flex}
+.vscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.vscroll::-webkit-scrollbar{display:none}
+
+/* ══ BOTTOM NAV ══ */
+.nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--sb));background:var(--s1);border-top:1px solid var(--b1);display:flex;align-items:flex-start;padding-top:4px;padding-bottom:var(--sb);z-index:100}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;cursor:pointer;border:none;background:transparent;color:var(--dim);font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;transition:color .15s}
+.nb .ni{font-size:22px;line-height:1}
+.nb.on{color:var(--acc)}
+
+/* ══ HOME ══ */
+.home-wrap{padding:22px 14px 12px}
+.home-hero{text-align:center;margin-bottom:22px}
+.h-ico{font-size:38px;display:block;margin-bottom:10px}
+.h-title{font-size:22px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;background:linear-gradient(135deg,#A0C4FF,#7B9FFF,#C0A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:5px}
+.h-sub{font-size:11px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.h-badges{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.h-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600;font-family:monospace;background:var(--s2);border:1px solid var(--b2);color:var(--dim)}
+.home-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.hcard{background:var(--s1);border:1px solid var(--b2);border-radius:12px;padding:16px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .15s}
+.hcard:active{transform:scale(.98);background:var(--s2)}
+.hc-ico{font-size:26px;flex-shrink:0}
+.hc-body{flex:1}
+.hc-title{font-size:16px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
+.hc-desc{font-size:11px;color:var(--dim);line-height:1.5;margin-bottom:6px}
+.hc-tag{font-size:10px;font-family:monospace;padding:2px 8px;border-radius:10px;display:inline-block}
+.hc-arr{font-size:20px;color:var(--dim);flex-shrink:0}
+.home-dl{text-align:center;padding:14px;border-radius:10px;background:var(--s1);border:1px dashed var(--b3)}
+.hdl-txt{font-size:11px;color:var(--dim);margin-bottom:10px;line-height:1.5}
+.hdl-btn{padding:10px 20px;border-radius:7px;border:1px solid #2A7A2A;background:#0D1F0D;color:#6FD86F;font-size:12px;font-weight:700;text-transform:uppercase;cursor:pointer}
+
+/* ══ SCHEMA ══ */
+.schema-wrap{padding:10px 12px 14px}
+.zone-card{background:var(--s1);border:1px solid var(--b1);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.zone-hdr{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;user-select:none}
+.zone-hdr:active{background:var(--s2)}
+.z-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.z-name{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;flex:1}
+.z-cnt{font-family:monospace;font-size:11px;color:var(--dim)}
+.z-arr{font-size:12px;color:var(--dim);transition:transform .2s}
+.zone-card.open .z-arr{transform:rotate(90deg)}
+.zone-panels{display:none;border-top:1px solid var(--b1)}
+.zone-card.open .zone-panels{display:block}
+.pr{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--b1);transition:background .12s}
+.pr:last-child{border-bottom:none}
+.pr:active{background:var(--s2)}
+.pr-name{font-family:monospace;font-size:15px;font-weight:800;flex-shrink:0;width:68px}
+.pr-info{flex:1}
+.pr-cnt{font-size:10px;color:var(--dim);margin-top:1px}
+.pr-arr{font-size:16px;color:var(--dim)}
+
+/* ══ BOTTOM SHEET ══ */
+.sh-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150}
+.sh-ov.show{display:block}
+.sheet{position:fixed;bottom:0;left:0;right:0;background:var(--s1);border-radius:16px 16px 0 0;border-top:1px solid var(--b2);z-index:160;max-height:80vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s ease;padding-bottom:var(--sb)}
+.sheet.show{transform:translateY(0)}
+.sh-handle{width:36px;height:4px;border-radius:2px;background:var(--b3);margin:10px auto 6px}
+.sh-hdr{padding:6px 16px 12px;border-bottom:1px solid var(--b1)}
+.sh-title{font-family:monospace;font-size:22px;font-weight:800;line-height:1}
+.sh-sub{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.sh-cnt{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:10px;background:var(--s3);border:1px solid var(--b2);font-family:monospace;font-size:11px;color:var(--acc)}
+.sh-list{flex:1;overflow-y:auto;padding:8px 12px}
+.sh-list::-webkit-scrollbar{display:none}
+.sh-item{display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:5px;margin-bottom:3px;background:var(--s2);border:1px solid var(--b1);font-size:12px;line-height:1.35}
+.si-num{font-family:monospace;font-size:10px;color:var(--dim);flex-shrink:0;min-width:20px;padding-top:1px}
+.si-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+
+/* ══ RANGER ══ */
+.ranger-fixed{padding:12px 12px 0;flex-shrink:0}
+.rg-prog{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rg-bar{flex:1;height:4px;background:var(--b2);border-radius:2px;overflow:hidden}
+.rg-bar-fill{height:100%;background:var(--acc);border-radius:2px;transition:width .4s ease}
+.rg-cnt{font-family:monospace;font-size:11px;color:var(--dim);white-space:nowrap}
+.rg-card{background:var(--s1);border:1px solid var(--b2);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.rg-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.rg-dep{font-family:monospace;font-size:15px;font-weight:700;color:#A8B8FF;line-height:1.4}
+.rg-fb{padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid;margin-bottom:10px;animation:fadeUp .2s ease;line-height:1.4}
+.rg-fb.ok{background:rgba(31,216,130,.08);border-color:rgba(31,216,130,.35);color:#9FF5CE}
+.rg-fb.ko{background:rgba(255,69,69,.08);border-color:rgba(255,69,69,.35);color:#FFB0B0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.rg-actions{display:flex;gap:8px;margin-bottom:10px}
+.rg-skip{flex:1;padding:11px;border-radius:7px;border:1px solid var(--b2);background:var(--s2);color:var(--dim);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.rg-verify{padding:11px 16px;border-radius:7px;border:1px solid var(--acc);background:#1A2E88;color:#8AAEFF;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.rg-section-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:0 12px;margin-bottom:6px}
+.ranger-panels{flex:1;overflow-y:auto;padding:0 12px 8px}
+.ranger-panels::-webkit-scrollbar{display:none}
+.rz-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 2px 4px;color:var(--dim)}
+.rz-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.rp-btn{padding:12px 10px;border-radius:8px;border:1px solid var(--b2);background:var(--s1);cursor:pointer;text-align:left;transition:all .12s;display:flex;flex-direction:column;gap:2px;-webkit-tap-highlight-color:transparent}
+.rp-btn:active{transform:scale(.96);background:var(--s2)}
+.rp-btn.flash-ok{animation:flashOk .4s ease}
+.rp-btn.flash-ko{animation:flashKo .4s ease}
+@keyframes flashOk{0%{background:rgba(31,216,130,.3);border-color:var(--grn)}100%{background:var(--s1);border-color:var(--b2)}}
+@keyframes flashKo{0%{background:rgba(255,69,69,.3);border-color:var(--red)}100%{background:var(--s1);border-color:var(--b2)}}
+.rpb-name{font-family:monospace;font-size:15px;font-weight:800;letter-spacing:.04em;line-height:1}
+.rpb-cnt{font-size:9px;color:var(--dim);margin-top:2px}
+.rg-next{width:100%;padding:12px;border-radius:7px;border:1px solid var(--b2);background:var(--s2);color:var(--txt);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;margin-bottom:10px}
+.rg-done{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center}
+.rg-done-ico{font-size:40px}
+.rg-done-title{font-size:18px;font-weight:800}
+.rg-done-sub{font-size:12px;color:var(--dim);line-height:1.5}
+.rg-done-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.rg-done-btn{padding:11px 18px;border-radius:7px;border:1px solid var(--b2);background:var(--s2);color:var(--txt);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.rg-done-btn.primary{background:#1A2E88;border-color:var(--acc);color:#8AAEFF}
+
+/* ══ QUIZ ══ */
+.quiz-wrap{padding:12px 12px 14px}
+.qz-topbar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.qz-counter{font-family:monospace;font-size:11px;color:var(--dim);white-space:nowrap}
+.qz-bar-track{flex:1;height:4px;background:var(--b2);border-radius:2px;overflow:hidden}
+.qz-bar-fill{height:100%;background:var(--acc);border-radius:2px;transition:width .4s ease}
+.qz-score-lbl{font-family:monospace;font-size:11px;white-space:nowrap}
+.qz-card{background:var(--s1);border:1px solid var(--b2);border-radius:10px;padding:18px 16px;margin-bottom:12px}
+.qz-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.qz-dep{font-family:monospace;font-size:16px;font-weight:700;color:#A8B8FF;line-height:1.4}
+.qz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.qz-opt{padding:14px 12px;border-radius:8px;border:1px solid var(--b2);background:var(--s2);color:var(--txt);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:4px;transition:all .12s;text-align:left;-webkit-tap-highlight-color:transparent}
+.qz-opt:active:not(:disabled){transform:scale(.97)}
+.qz-opt:disabled{cursor:default}
+.qz-opt-name{font-family:monospace;font-size:17px;font-weight:800;letter-spacing:.04em}
+.qz-opt-grp{font-size:9px;letter-spacing:.07em;text-transform:uppercase;opacity:.6}
+.qz-opt.correct{border-color:var(--grn)!important;background:rgba(31,216,130,.1)!important}
+.qz-opt.wrong{border-color:var(--red)!important;background:rgba(255,69,69,.1)!important}
+.qz-opt.reveal{border-color:var(--grn);opacity:.6}
+.qz-fb{padding:10px 12px;border-radius:6px;font-size:12px;font-weight:600;line-height:1.5;border:1px solid;margin-bottom:10px;animation:fadeUp .2s ease}
+.qz-fb.ok{background:rgba(31,216,130,.08);border-color:rgba(31,216,130,.35);color:#9FF5CE}
+.qz-fb.ko{background:rgba(255,69,69,.08);border-color:rgba(255,69,69,.35);color:#FFB0B0}
+.qz-next{width:100%;padding:13px;border-radius:8px;border:1px solid var(--b2);background:var(--s2);color:var(--txt);font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer}
+.qz-setup-wrap{background:var(--s1);border:1px solid var(--b2);border-radius:10px;padding:24px 16px;text-align:center}
+.qz-setup-title{font-size:20px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.qz-setup-sub{font-size:12px;color:var(--dim);margin-bottom:20px;line-height:1.5}
+.qz-sizes{display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.qz-sz{padding:11px 18px;border-radius:6px;border:1px solid var(--b2);background:var(--s2);color:var(--txt);font-size:14px;font-weight:700;cursor:pointer;font-family:monospace}
+.qz-sz.sel{border-color:var(--acc);color:var(--acc);background:var(--s3)}
+.qz-start{padding:13px 32px;border-radius:8px;border:1px solid var(--acc);background:#1A2E88;color:#8AAEFF;font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+
+/* ══ OVERLAY ══ */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:16px}
+.overlay.show{display:flex}
+.modal{background:var(--s1);border:1px solid var(--b2);border-radius:14px;padding:26px 18px;text-align:center;width:100%;max-width:360px}
+.m-score{font-size:50px;font-weight:800;font-family:monospace;line-height:1;margin-bottom:4px}
+.m-pct{font-size:11px;color:var(--dim);margin-bottom:12px;font-family:monospace}
+.m-label{font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.m-sub{font-size:12px;color:var(--dim);margin-bottom:18px;line-height:1.6}
+.m-chips{display:flex;gap:6px;margin-bottom:16px}
+.m-chip{flex:1;padding:8px 4px;border-radius:6px;background:var(--s2);border:1px solid var(--b2)}
+.m-chip-val{font-size:20px;font-weight:700;font-family:monospace;line-height:1}
+.m-chip-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+.m-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.m-btn{padding:10px 16px;border-radius:6px;border:1px solid var(--b2);background:var(--s2);color:var(--txt);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.m-btn.primary{background:#1A2E88;border-color:var(--acc);color:#8AAEFF}
+</style>
+</head>
+<body>
+
+<!-- Message si JS désactivé (aperçu iOS Fichiers) -->
+<noscript>
+<div style="position:fixed;inset:0;background:#0B0D12;color:#CDD0E8;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;z-index:9999">
+  <div style="font-size:48px;margin-bottom:18px">⚡</div>
+  <div style="font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Ouvrir dans Safari</div>
+  <div style="font-size:14px;color:#5A6080;line-height:1.7;margin-bottom:24px">
+    Ce fichier est ouvert en mode aperçu.<br>
+    JavaScript est désactivé dans ce mode.<br><br>
+    <strong style="color:#CDD0E8">Comment faire :</strong><br>
+    1. Appuyez sur <strong style="color:#4D7FFF">⎋ Partager</strong> (icône en haut à droite)<br>
+    2. Sélectionnez <strong style="color:#4D7FFF">Ouvrir dans Safari</strong><br>
+    3. L'application fonctionnera parfaitement !
+  </div>
+  <div style="font-size:12px;color:#363D60;padding:12px 16px;background:#111420;border-radius:8px;border:1px solid #1E2235">
+    💡 Astuce : vous pouvez aussi ajouter l'app à votre écran d'accueil<br>
+    depuis Safari → Partager → Sur l'écran d'accueil
+  </div>
+</div>
+</noscript>
+
+<header class="hdr">
+  <div class="hdr-brand" onclick="goHome()">
+    <div class="hdr-ico">⚡</div>
+    <div>
+      <div class="hdr-title">Armoires Élec.</div>
+      <div class="hdr-sub">EUROFLOAT · MOBILE</div>
+    </div>
+  </div>
+  <button class="dl-btn" onclick="downloadApp()">📥</button>
+</header>
+
+<!-- HOME -->
+<div class="view on" id="view-home">
+  <div class="vscroll">
+    <div class="home-wrap">
+      <div class="home-hero">
+        <span class="h-ico">⚡</span>
+        <div class="h-title">Armoires Électriques</div>
+        <div class="h-sub">Eurofloat — Formation</div>
+        <div class="h-badges">
+          <span class="h-badge">31 armoires</span>
+          <span class="h-badge">264 départs</span>
+          <span class="h-badge">Hors ligne</span>
+        </div>
+      </div>
+      <div class="home-cards">
+        <div class="hcard" style="border-left:3px solid #4D7FFF" onclick="setMode('schema')">
+          <div class="hc-ico">📐</div>
+          <div class="hc-body">
+            <div class="hc-title" style="color:#4D7FFF">Schéma</div>
+            <div class="hc-desc">Explorez les zones et leurs armoires, touchez pour voir les départs</div>
+            <span class="hc-tag" style="background:#4D7FFF15;border:1px solid #4D7FFF44;color:#4D7FFF">31 armoires · Accordéon</span>
+          </div>
+          <div class="hc-arr">›</div>
+        </div>
+        <div class="hcard" style="border-left:3px solid #FF9330" onclick="setMode('ranger')">
+          <div class="hc-ico">🗂️</div>
+          <div class="hc-body">
+            <div class="hc-title" style="color:#FF9330">Ranger</div>
+            <div class="hc-desc">Un départ s'affiche — touchez l'armoire correspondante</div>
+            <span class="hc-tag" style="background:#FF933015;border:1px solid #FF933044;color:#FF9330">264 départs · Tap</span>
+          </div>
+          <div class="hc-arr">›</div>
+        </div>
+        <div class="hcard" style="border-left:3px solid #1FD882" onclick="setMode('quiz')">
+          <div class="hc-ico">🎯</div>
+          <div class="hc-body">
+            <div class="hc-title" style="color:#1FD882">Quiz</div>
+            <div class="hc-desc">Testez vos connaissances, 4 choix par question</div>
+            <span class="hc-tag" style="background:#1FD88215;border:1px solid #1FD88244;color:#1FD882">10 / 20 / 50 / Tout · QCM</span>
+          </div>
+          <div class="hc-arr">›</div>
+        </div>
+      </div>
+      <div class="home-dl">
+        <div class="hdl-txt">📤 Partagez avec vos collègues — fonctionne sans connexion.</div>
+        <button class="hdl-btn" onclick="downloadApp()">📥 Télécharger (.html)</button>
+      </div>
+
+      <div style="margin-top:12px;padding:14px;border-radius:10px;background:#111420;border:1px solid #1E2235;font-size:11px;color:#5A6080;line-height:1.7">
+        📱 <strong style="color:#CDD0E8">Sur iPhone :</strong> ouvrez le fichier téléchargé dans <strong style="color:#4D7FFF">Safari</strong> (pas dans Fichiers).<br>
+        Ensuite : Partager → <strong style="color:#4D7FFF">Sur l'écran d'accueil</strong> pour créer une icône d'app.<br>
+        🤖 <strong style="color:#CDD0E8">Sur Android :</strong> ouvrez dans Chrome, le fichier fonctionne directement.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEMA -->
+<div class="view" id="view-schema">
+  <div class="vscroll">
+    <div class="schema-wrap" id="schema-wrap"></div>
+  </div>
+</div>
+
+<!-- RANGER -->
+<div class="view" id="view-ranger">
+  <div class="ranger-fixed" id="ranger-fixed">
+    <div class="rg-prog">
+      <div class="rg-bar"><div class="rg-bar-fill" id="rg-bar" style="width:0%"></div></div>
+      <span class="rg-cnt" id="rg-cnt">0 / 0</span>
+    </div>
+    <div class="rg-card">
+      <div class="rg-lbl">Départ à placer dans :</div>
+      <div class="rg-dep" id="rg-dep">—</div>
+    </div>
+    <div id="rg-fb" style="display:none" class="rg-fb"></div>
+    <button id="rg-next-btn" style="display:none" class="rg-next" onclick="rangerNext()">→ Départ suivant</button>
+    <div class="rg-actions">
+      <button class="rg-skip" onclick="rangerSkip()">Passer →</button>
+      <button class="rg-verify" onclick="rangerVerify()">✓ Vérifier</button>
+    </div>
+    <div class="rg-section-lbl">Sélectionnez l'armoire :</div>
+  </div>
+  <div class="ranger-panels vscroll" id="ranger-panels"></div>
+  <div class="rg-done" id="rg-done" style="display:none">
+    <div class="rg-done-ico">🎉</div>
+    <div class="rg-done-title">Tous les départs placés !</div>
+    <div class="rg-done-sub" id="rg-done-sub"></div>
+    <div class="rg-done-btns">
+      <button class="rg-done-btn" onclick="rangerReset()">↺ Recommencer</button>
+      <button class="rg-done-btn primary" onclick="rangerVerify()">✓ Résultats</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="view" id="view-quiz">
+  <div class="vscroll">
+    <div class="quiz-wrap">
+      <div id="qz-setup">
+        <div class="qz-setup-wrap">
+          <div class="qz-setup-title">🎯 Quiz</div>
+          <div class="qz-setup-sub">Identifiez dans quel tableau se trouve chaque départ.</div>
+          <div class="qz-sizes">
+            <button class="qz-sz" onclick="selSz(10,this)">10</button>
+            <button class="qz-sz sel" onclick="selSz(20,this)">20</button>
+            <button class="qz-sz" onclick="selSz(50,this)">50</button>
+            <button class="qz-sz" onclick="selSz(999,this)">Tout</button>
+          </div>
+          <button class="qz-start" onclick="startQuiz()">Commencer →</button>
+        </div>
+      </div>
+      <div id="qz-q" style="display:none">
+        <div class="qz-topbar">
+          <span class="qz-counter" id="qz-cnt">Q 0 / 0</span>
+          <div class="qz-bar-track"><div class="qz-bar-fill" id="qz-bar" style="width:0%"></div></div>
+          <span class="qz-score-lbl" id="qz-sc">0 ✓</span>
+        </div>
+        <div class="qz-card">
+          <div class="qz-label">Dans quel tableau se trouve ce départ ?</div>
+          <div class="qz-dep" id="qz-dep">—</div>
+        </div>
+        <div class="qz-opts" id="qz-opts"></div>
+        <div id="qz-fb" style="display:none" class="qz-fb"></div>
+        <button class="qz-next" id="qz-next" style="display:none" onclick="nextQ()">→ Question suivante</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nb on" id="nb-home" onclick="goHome()"><span class="ni">🏠</span>Accueil</button>
+  <button class="nb" id="nb-schema" onclick="setMode('schema')"><span class="ni">📐</span>Schéma</button>
+  <button class="nb" id="nb-ranger" onclick="setMode('ranger')"><span class="ni">🗂️</span>Ranger</button>
+  <button class="nb" id="nb-quiz" onclick="setMode('quiz')"><span class="ni">🎯</span>Quiz</button>
+</nav>
+
+<!-- SHEET -->
+<div class="sh-ov" id="sh-ov" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet">
+  <div class="sh-handle"></div>
+  <div class="sh-hdr" id="sh-hdr"></div>
+  <div class="sh-list" id="sh-list"></div>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="m-score" id="m-score"></div>
+    <div class="m-pct" id="m-pct"></div>
+    <div class="m-label" id="m-label"></div>
+    <div class="m-sub" id="m-sub"></div>
+    <div class="m-chips">
+      <div class="m-chip"><div class="m-chip-val" style="color:var(--grn)" id="m-ok"></div><div class="m-chip-lbl">Corrects</div></div>
+      <div class="m-chip"><div class="m-chip-val" style="color:var(--red)" id="m-err"></div><div class="m-chip-lbl">Erreurs</div></div>
+      <div class="m-chip"><div class="m-chip-val" style="color:var(--dim)" id="m-miss"></div><div class="m-chip-lbl">Manqués</div></div>
+    </div>
+    <div class="m-btns" id="m-btns"></div>
+  </div>
+</div>
+
+<script>
+// Snapshot pris AVANT toute modification du DOM par JS
+// Garantit que le fichier téléchargé est toujours propre et fonctionnel
+const _SNAP = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+const PANELS=[
+  {id:'TBT',group:'SALLE ST3',zone:'ST3',clr:'#C23B2B',items:['Pont roulant four','Onduleurs 1 et 2','Pony drive','Boosting oxygène','Barrages four','Chauffage équarri','Secours calcin','Climatisation ST3 bis','Tableaux éclairage TD1','Prise 380V vers four et float','Départ vers KBT','Tous les ventilateurs (sauf MV5/6, MV27-30)']},
+  {id:'TCT',group:'SALLE ST3',zone:'ST3',clr:'#C23B2B',items:['Chauffages du ROOF']},
+  {id:'XBT',group:'SALLE ST3',zone:'ST3',clr:'#C23B2B',items:['Onduleur ST4','Auxiliaires Float','Ascenseur float','Chauffage et ventilation étenderie','Tableaux éclairage TD2',"Batteries d'attrempage zones étenderie",'Départ XBDL 1 et 2 vers équarri','Prise 380V sous étenderie']},
+  {id:'SBT',group:'SALLE ST3',zone:'ST3',clr:'#C23B2B',items:['Tableaux EMCC 1 et 2','Chargeur de batterie 110V','Compresseurs C1, C2, C3 et C6','Compresseurs C4 et C5',"Sécheur d'air",'Climatisation ST3','Climatisation salle de contrôle','Auxiliaire groupe de secours','Vannes étenderie','Bureaux expédition','Bureaux administratif','Bureaux de production','Éclairage extérieur','Armoire dépoussiéreurs ST4']},
+  {id:'EMCC1',group:'EMCC',zone:'EMCC',clr:'#7B2FBE',items:['PAT5','Tour aéro 1, 3 et 5','Extracteur compresseur 2 et 3','Pompe saumure PS1','Pompe vidange PSR1','PAC3','PAC2']},
+  {id:'EMCC2',group:'EMCC',zone:'EMCC',clr:'#7B2FBE',items:['Tour aéro 2 et 4','Pompe puits','PAF2','Extracteur compresseur 1 et 6','Armoire des pompes eau brute','Pompe saumure PS2','Pompe vidange PSR2','PAC1','PAF4']},
+  {id:'KBT',group:'ST2',zone:'ST2',clr:'#C47A15',items:['Mélangeuse M1','Mélangeuse M2','Dépoussiéreur compo','Onduleur 1 ST2','Onduleur 2 ST2','Alim Extracteur Ligne 1','Alim Extracteur Ligne 2','Recyclage poussière','Alim KMCC1','Alimentation KMCC2','Alimentation KMCC3','Alimentation KMCC4','Armoire inversion','Réchauffage eau compo','Éclairage T04','Ascenseur KBT','Prise 380V KBT','Armoire By-pass EXT réseau 2','Prise 380V compo T30+T31+Mélangeuse']},
+  {id:'KMCC1',group:'ST2',zone:'ST2',clr:'#C47A15',items:['Cabine NOX','Tapis T8A','Navette T10','Tapis circuit sable','Tapis circuit calcin TC8-TC11-TC12-TC10','Portail vers mélangeuse','Portail vers chaudière','Déferreur T30','Tapis T38','Tapis T15A','Navette T36','Tapis T9']},
+  {id:'KMCC2',group:'ST2',zone:'ST2',clr:'#C47A15',items:['Pompe gasoil','Chaudière','Niveau de verre','AR klaxon ST2','Local repas bout chaud','Atelier bout chaud','Dépotage oxyde de fer','T13','T14','T20 moteur','T22 moteur','T23 – Ventilo et réchauffeur','Coffret réchauffeur de verre','Ventilateur niveau de verre','Vibreur Silo 3','Vibreur Silo 4','Vibreur 1 Silo 7','Vibreur de ponte Silo 7','Vibreur Silo 8','Vibreur de ponte silo 8','Vibreur de ponte silo 3','Vibreur de ponte silo 4','Guillotine BQ2','Guillotine 1 BQ6','Guillotine 1 BQ8','Guillotine 2 BQ8','Guillotine 2 BQ6','Vibreur Silo 16','Vibreur Silo 18','Vibreur BQ10','Vibreur Silo 19','Vibreur ST20','Vibreur BQ12','Vibreur 2 Silo 21','Vibreur Silo 22','Vibreur BQ14','Vibreur Silo 23','Vibreur Silo 24','Vibreur BQ16','Guillotine 2 BQ10','Guillotine 1 BQ19','Guillotine 1 BQ14','Guillotine 2 BQ16','Vibreur silo 26','Tapis T13','Tapis T14','Tapis T20','Tapis T22','Tapis T23','Pulvérisation fusion et corset','Alimentation armoire puissance ST2']},
+  {id:'KMCC3',group:'ST2',zone:'ST2',clr:'#C47A15',items:['Vibreur silo 1','Vibreur silo 2','Vibreur de pointe silo 1','Vibreur de pointe silo 2','Vibreur de pointe silo 5','Vibreur de pointe silo 6','Alimentateur vibrant ST1.PV','Vibreur Silo 5','Alimentateur vibrant ST5.PV','Alimentateur vibrant ST2.PV','Vibreur Silo 6','Alimentateur vibrant ST6.PV','Guillotine BQ1','Guillotine BQ3','Guillotine 1 BQ5','Guillotine BQ7','Guillotine 2 BQ5','Vibreur Silo 17','Vibreur Silo 18','Vibreur BQ19','Vibreur Silo 19','Vibreur Silo 20','Vibreur BQ11','Vibreur Silo 21','Vibreur Silo 22','Vibreur BQ13','Vibreur Silo 23','Vibreur Silo 24','Vibreur BQ15','Guillotine 2 BQ9','Guillotine 2 BQ13']},
+  {id:'KMCC4',group:'ST2',zone:'ST2',clr:'#C47A15',items:["Tapis depuis mélangeuse jusqu'à enfournement",'Pompes eau Mélangeuses','Tapis T35','Tapis T30','Vibreur A et B Tapis T30','Vibreur A et B Tapis T31','Tapis T31']},
+  {id:'XMCC1',group:'ST4',zone:'ST4',clr:'#1A6B9A',items:['Tapis TC2','Broyeur 2-1','Broyeur 2-2','Broyeur 3','Tapis TC4','Tapis TC5','Tapis TC6','Vibreur broyeur 2 Droit','Vibreur Broyeur 2 gauche','Vibreur a broyeur 3','Vibreur b broyeur 3','Vibreur a broyeur 5','Vibreur b broyeur 5','Couloir vibrant Broyeur 5','Couloir vibrant Broyeur 3']},
+  {id:'XMCC2',group:'ST4',zone:'ST4',clr:'#1A6B9A',items:['Robot DLF','Releveuse PLF2','Climatisation ST4','Portail face laser','Pont 16T M3 ouest','Portail métallique sous étenderie côté nord','Portail magasin 5','Ventilateur cabines de visite','Pompes soulèvement','Pont 16T M4 ouest','Pont roulant M2 ouest']},
+  {id:'XMCC3',group:'ST4',zone:'ST4',clr:'#1A6B9A',items:['Tapis TC1','Vibreur broyeur 1','Releveuse PLF1','Tapis TC7','AR.Klaxon ST4','Couloir vibrant broyeur 4','Vibreur A broyeur 4','Vibreur B broyeur 4','Couloir Vibrant broyeur 1','Tapis TC15',"Vibreur b casse à l'eau",'Tri classe 4 sur TC6',"Couloir vibrant casse à l'eau",'Tapis T02','Translateur T01','Inclineur Zone F3','Tri calcin','Releveuse PL3']},
+  {id:'XMCC4',group:'ST4',zone:'ST4',clr:'#1A6B9A',items:['Basculeur M3','Tapis T0','Retourneur DLF M2','Pont roulant 32T M4','Armoire découpe Bottero','Tapis T01','Tapis TC3','Chargeur batterie N°3']},
+  {id:'XBT1',group:'ST4',zone:'ST4',clr:'#1A6B9A',items:['Éclairage ST5','Armoire extension MCR ouest','Pont 16T M3 est','Pont 16T M2 est','Chargeur batterie XBT1','Départ XMCC2','Départ XMCC4','Ligne 1 Bottero ligne principale','XBT2','Ligne 2 Bottero Conv PLF1-2','Départ XMCC3','Départ XMCC1','Pompe désoulèvement','Pont 5T M1','Prise 380V XBT1','Ligne 3 Bottero conv EPI']},
+  {id:'1201',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Entraînement M202 à M221']},
+  {id:'1202',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Ponts découpe longitudinale']},
+  {id:'1203',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Ponts découpe transversale']},
+  {id:'1204',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Marquage']},
+  {id:'1205',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Ordi découpe']},
+  {id:'1206',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Ordi optimisation']},
+  {id:'1207',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Ordi Marquage']},
+  {id:'1208',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Caméra de bord']},
+  {id:'1301',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Équipement M301 à M317 + M329']},
+  {id:'1302',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Équipement M323 à M344 + M903 + M901 + M902 + Broyeur 4']},
+  {id:'1303',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Équipement M351 à M363 + Broyeur 50']},
+  {id:'1702',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['M706A + M706B + M707A + M707B']},
+  {id:'1401',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Releveuse PLF1 Armoire']},
+  {id:'1402',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Releveuse PLF2 Armoire']},
+  {id:'1403',group:'ÉQUARRI',zone:'ÉQUARRI',clr:'#1F7B5A',items:['Releveuse PLF3 Armoire']},
+];
+const P_MAP={};PANELS.forEach(p=>P_MAP[p.id]=p);
+const ITEMS=[];PANELS.forEach(p=>p.items.forEach((name,i)=>ITEMS.push({id:`${p.id}::${i}`,name,panel:p.id})));
+ITEMS.sort(()=>Math.random()-.5);
+const TOTAL=ITEMS.length;
+
+// ── NAVIGATION ──
+const MODES=['home','schema','ranger','quiz'];
+function setMode(m){
+  MODES.forEach(x=>{const v=document.getElementById('view-'+x);if(v)v.classList.toggle('on',x===m)});
+  MODES.concat(['home']).forEach(x=>{const b=document.getElementById('nb-'+x);if(b)b.classList.toggle('on',x===m)});
+  if(m==='schema') buildSchema();
+  if(m==='ranger') initRanger();
+}
+function goHome(){setMode('home')}
+
+// ── SCHEMA ──
+function buildSchema(){
+  const w=document.getElementById('schema-wrap');
+  if(w.children.length>0) return; // already built
+  const zones={};
+  PANELS.forEach(p=>{if(!zones[p.zone])zones[p.zone]={clr:p.clr,panels:[]};zones[p.zone].panels.push(p)});
+  Object.entries(zones).forEach(([zone,{clr,panels}])=>{
+    const card=document.createElement('div');card.className='zone-card';
+    const totalItems=panels.reduce((a,p)=>a+p.items.length,0);
+    card.innerHTML=`<div class="zone-hdr" onclick="toggleZone(this)"><div class="z-dot" style="background:${clr}"></div><span class="z-name" style="color:${clr}">${zone}</span><span class="z-cnt">${panels.length} armoires · ${totalItems} départs</span><span class="z-arr">›</span></div><div class="zone-panels">${panels.map(p=>`<div class="pr" onclick="openSheet('${p.id}')"><span class="pr-name" style="color:${p.clr}">${p.id}</span><div class="pr-info"><div style="font-size:12px;font-weight:600">${p.group}</div><div class="pr-cnt">${p.items.length} départ${p.items.length>1?'s':''}</div></div><span class="pr-arr" style="color:${p.clr}">›</span></div>`).join('')}</div>`;
+    w.appendChild(card);
+  });
+}
+function toggleZone(hdr){hdr.closest('.zone-card').classList.toggle('open')}
+function openSheet(panelId){
+  const p=P_MAP[panelId];if(!p)return;
+  document.getElementById('sh-hdr').innerHTML=`<div class="sh-title" style="color:${p.clr}">${p.id}</div><div class="sh-sub">${p.zone} · ${p.group}</div><span class="sh-cnt">${p.items.length} départ${p.items.length>1?'s':''}</span>`;
+  const list=document.getElementById('sh-list');list.innerHTML='';
+  p.items.forEach((name,i)=>{
+    const el=document.createElement('div');el.className='sh-item';
+    el.innerHTML=`<span class="si-num">${i+1}</span><div class="si-dot" style="background:${p.clr}"></div><span>${name}</span>`;
+    list.appendChild(el);
+  });
+  document.getElementById('sh-ov').classList.add('show');
+  document.getElementById('sheet').classList.add('show');
+}
+function closeSheet(){
+  document.getElementById('sh-ov').classList.remove('show');
+  document.getElementById('sheet').classList.remove('show');
+}
+
+// ── RANGER ──
+let rangerQueue=[], rangerPlacements={}, rangerIdx=0, rangerAnswered=false;
+
+function initRanger(){
+  if(rangerQueue.length>0) return; // already started
+  rangerQueue=[...ITEMS].sort(()=>Math.random()-.5);
+  rangerIdx=0; rangerPlacements={}; rangerAnswered=false;
+  renderRangerPanels();
+  updateRangerCard();
+}
+
+function renderRangerPanels(){
+  const cont=document.getElementById('ranger-panels');
+  cont.innerHTML='';
+  const zones={};
+  PANELS.forEach(p=>{if(!zones[p.zone])zones[p.zone]={clr:p.clr,panels:[]};zones[p.zone].panels.push(p)});
+  Object.entries(zones).forEach(([zone,{clr,panels}])=>{
+    const lbl=document.createElement('div');lbl.className='rz-lbl';lbl.style.color=clr;lbl.textContent=zone;
+    cont.appendChild(lbl);
+    const grid=document.createElement('div');grid.className='rz-grid';
+    panels.forEach(p=>{
+      const btn=document.createElement('button');btn.className='rp-btn';btn.id='rpb-'+p.id;
+      btn.style.borderColor=p.clr+'55';
+      btn.innerHTML=`<div class="rpb-name" style="color:${p.clr}">${p.id}</div><div class="rpb-cnt">${p.items.length} départs</div>`;
+      btn.addEventListener('click',()=>rangerPlace(p.id));
+      grid.appendChild(btn);
+    });
+    cont.appendChild(grid);
+  });
+}
+
+function updateRangerCard(){
+  const fixed=document.getElementById('ranger-fixed');
+  const done=document.getElementById('rg-done');
+  const placed=Object.keys(rangerPlacements).length;
+  const pct=Math.round(placed/TOTAL*100);
+  document.getElementById('rg-bar').style.width=pct+'%';
+  document.getElementById('rg-cnt').textContent=`${placed} / ${TOTAL}`;
+
+  if(rangerIdx>=rangerQueue.length){
+    fixed.style.display='none';done.style.display='flex';
+    document.getElementById('rg-done-sub').textContent=`${placed} départ${placed>1?'s':''} placé${placed>1?'s':''}. Appuyez sur "Résultats" pour voir votre score.`;
+    return;
+  }
+  fixed.style.display='';done.style.display='none';
+  document.getElementById('rg-dep').textContent=rangerQueue[rangerIdx].name;
+  document.getElementById('rg-fb').style.display='none';
+  document.getElementById('rg-next-btn').style.display='none';
+  rangerAnswered=false;
+}
+
+function rangerPlace(panelId){
+  if(rangerAnswered) return;
+  const item=rangerQueue[rangerIdx];
+  rangerAnswered=true;
+  rangerPlacements[item.id]=panelId;
+  const correct=panelId===item.panel;
+  const fb=document.getElementById('rg-fb');
+  fb.className='rg-fb '+(correct?'ok':'ko');
+  fb.innerHTML=correct
+    ?`✓ Correct ! <strong>${item.name}</strong> → <strong>${item.panel}</strong>`
+    :`✗ Incorrect. La bonne armoire est <strong>${item.panel}</strong> (${P_MAP[item.panel].group})`;
+  fb.style.display='block';
+  // Flash button
+  const btn=document.getElementById('rpb-'+panelId);
+  if(btn){btn.classList.add(correct?'flash-ok':'flash-ko');setTimeout(()=>btn.classList.remove('flash-ok','flash-ko'),400)}
+  if(correct){
+    setTimeout(()=>{rangerIdx++;updateRangerCard()},800);
+  } else {
+    document.getElementById('rg-next-btn').style.display='block';
+  }
+}
+
+function rangerNext(){rangerIdx++;updateRangerCard()}
+function rangerSkip(){
+  const item=rangerQueue[rangerIdx];
+  rangerQueue.splice(rangerIdx,1);
+  rangerQueue.push(item);
+  updateRangerCard();
+}
+function rangerReset(){rangerQueue=[];rangerPlacements={};rangerIdx=0;rangerAnswered=false;renderRangerPanels();updateRangerCard()}
+function rangerVerify(){
+  const placed=Object.keys(rangerPlacements).length;
+  if(!placed){alert('Placez au moins un départ !');return}
+  let correct=0;
+  Object.entries(rangerPlacements).forEach(([id,pid])=>{const it=ITEMS.find(i=>i.id===id);if(it&&it.panel===pid)correct++});
+  showModal(correct,placed-correct,TOTAL-placed,Math.round(correct/TOTAL*100),'ranger');
+}
+
+// ── QUIZ ──
+let qzSize=20,qzQs=[],qzIdx=0,qzScore=0,qzAnswered=false;
+function selSz(n,btn){qzSize=n;document.querySelectorAll('.qz-sz').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel')}
+function startQuiz(){
+  const pool=[...ITEMS].sort(()=>Math.random()-.5).slice(0,Math.min(qzSize,TOTAL));
+  qzQs=pool.map(item=>{
+    const correct=item.panel;
+    const sg=PANELS.filter(p=>p.id!==correct&&p.zone===P_MAP[correct].zone);
+    const og=PANELS.filter(p=>p.id!==correct&&p.zone!==P_MAP[correct].zone);
+    const wrong=[];
+    if(sg.length)wrong.push(sg[Math.floor(Math.random()*sg.length)].id);
+    const oth=og.sort(()=>Math.random()-.5);
+    while(wrong.length<3&&oth.length)wrong.push(oth.shift().id);
+    const rem=PANELS.filter(p=>p.id!==correct&&!wrong.includes(p.id)).sort(()=>Math.random()-.5);
+    while(wrong.length<3&&rem.length)wrong.push(rem.shift().id);
+    return{item,correct,opts:[correct,...wrong.slice(0,3)].sort(()=>Math.random()-.5)};
+  });
+  qzIdx=0;qzScore=0;qzAnswered=false;
+  document.getElementById('qz-setup').style.display='none';
+  document.getElementById('qz-q').style.display='block';
+  renderQ();
+}
+function renderQ(){
+  if(qzIdx>=qzQs.length){endQuiz();return}
+  const q=qzQs[qzIdx];qzAnswered=false;
+  const total=qzQs.length;
+  document.getElementById('qz-cnt').textContent=`Q ${qzIdx+1} / ${total}`;
+  document.getElementById('qz-bar').style.width=Math.round(qzIdx/total*100)+'%';
+  document.getElementById('qz-sc').textContent=`${qzScore} ✓`;
+  document.getElementById('qz-dep').textContent=q.item.name;
+  const oe=document.getElementById('qz-opts');oe.innerHTML='';
+  q.opts.forEach(pid=>{
+    const p=P_MAP[pid];const btn=document.createElement('button');btn.className='qz-opt';
+    btn.innerHTML=`<div class="qz-opt-name" style="color:${p.clr}">${pid}</div><div class="qz-opt-grp">${p.zone}</div>`;
+    btn.addEventListener('click',()=>answerQ(pid,btn,q));
+    oe.appendChild(btn);
+  });
+  document.getElementById('qz-fb').style.display='none';
+  document.getElementById('qz-next').style.display='none';
+}
+function answerQ(chosen,btn,q){
+  if(qzAnswered)return;qzAnswered=true;
+  const ok=chosen===q.correct;if(ok)qzScore++;
+  document.querySelectorAll('.qz-opt').forEach(b=>{
+    b.disabled=true;
+    if(b.querySelector('.qz-opt-name').textContent===q.correct&&!ok)b.classList.add('reveal');
+  });
+  btn.classList.add(ok?'correct':'wrong');
+  const fb=document.getElementById('qz-fb');
+  fb.className='qz-fb '+(ok?'ok':'ko');
+  fb.innerHTML=ok?`✓ Correct ! <strong>${q.item.name}</strong> → <strong>${q.correct}</strong>`:`✗ Incorrect. Bonne réponse : <strong>${q.correct}</strong> (${P_MAP[q.correct].zone})`;
+  fb.style.display='block';
+  const nxt=document.getElementById('qz-next');
+  nxt.textContent=qzIdx+1<qzQs.length?'→ Question suivante':'→ Voir les résultats';
+  nxt.style.display='block';
+  document.getElementById('qz-sc').textContent=`${qzScore} ✓`;
+}
+function nextQ(){qzIdx++;if(qzIdx>=qzQs.length)endQuiz();else renderQ()}
+function endQuiz(){
+  showModal(qzScore,qzQs.length-qzScore,0,Math.round(qzScore/qzQs.length*100),'quiz');
+}
+function resetQuiz(){
+  qzQs=[];qzIdx=0;qzScore=0;qzAnswered=false;
+  document.getElementById('qz-setup').style.display='block';
+  document.getElementById('qz-q').style.display='none';
+}
+
+// ── MODAL ──
+function showModal(correct,wrong,miss,pct,mode){
+  let label,sub,clr;
+  if(pct>=90){label='Excellent !';sub='Maîtrise parfaite des armoires.';clr='var(--grn)'}
+  else if(pct>=70){label='Très bien !';sub='Bonne connaissance des tableaux.';clr='var(--grn)'}
+  else if(pct>=50){label='Correct';sub='Révisez les groupes.';clr='var(--org)'}
+  else{label='À revoir';sub='Relisez le document.';clr='var(--red)'}
+  document.getElementById('m-score').textContent=pct+'%';
+  document.getElementById('m-score').style.color=clr;
+  document.getElementById('m-pct').textContent=`${correct} corrects · ${wrong} erreurs · ${miss} manqués`;
+  document.getElementById('m-label').textContent=label;
+  document.getElementById('m-sub').textContent=sub;
+  document.getElementById('m-ok').textContent=correct;
+  document.getElementById('m-err').textContent=wrong;
+  document.getElementById('m-miss').textContent=miss;
+  const btns=document.getElementById('m-btns');
+  if(mode==='quiz') btns.innerHTML=`<button class="m-btn" onclick="goHome();closeModal()">← Accueil</button><button class="m-btn primary" onclick="resetQuiz();closeModal()">↺ Nouveau quiz</button>`;
+  else btns.innerHTML=`<button class="m-btn" onclick="closeModal()">Fermer</button><button class="m-btn primary" onclick="rangerReset();closeModal()">↺ Recommencer</button>`;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeModal(){document.getElementById('overlay').classList.remove('show')}
+
+// ── DOWNLOAD ──
+function downloadApp(){
+  const blob=new Blob([_SNAP],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='Eurofloat-Mobile.html';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+</script>
+</body>
+</html>
